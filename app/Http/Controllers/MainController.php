@@ -10,39 +10,23 @@ class MainController extends Controller
 {
     public function index()
     {
-        // // Inserindo um produto no banco de dados (usando Eloquent)
-        // $new_product = new Product();
-        // $new_product->product_name = 'Novo Produto';
-        // $new_product->price = 50.00;
-        // $new_product->save();
+        // // UPDATE
+        // $products = Product::find(10);
+        // $products->product_name = 'PRODUTI ALTERADO';
+        // $products->price = 10;
+        // $products->save();
 
-        // // Inserindo um produto no banco (necessário definir propriedade $fillable no model do eloquent)
-        // Product::create([
-        //     'product_name' => 'Novo Product 2',
-        //     'price' => 50.2
+        // // UPDATE de forma massiva (altera vários produtos de uma vez)
+        // // Necessita de cuidado, pois esse tipo de update é irreversível
+        // Product::where('price', '<=', 10)->update([
+        //     'price' => 250
         // ]);
 
-        // Inserindo vários produtos na base de dados de uma vez (usa o $fillable no model do eloquent)
-        Product::insert([
-            [
-                'product_name' => 'Produto 1',
-                'price' => 10,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'product_name' => 'Produto 2',
-                'price' => 20,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'product_name' => 'Produto 3',
-                'price' => 30,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
+        // // Atualizar (se existir) ou criar
+        // Product::updateOrCreate(
+        //     ['product_name' => 'XAROPE'], //Busca na base se existe produto com esse nome
+        //     ['price' => 25] //Atualiza ou cria um produto com o nome Batata e o preço de 25
+        // );
     }
 
     private function showData($data)
