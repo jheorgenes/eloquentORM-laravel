@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -11,4 +12,7 @@ class Product extends Model
     // Isso vai impedir de acrescentar o created_at e o updated_at automaticamente ao inserir o produto usando a função 'insert'
     // Dito isso, esses campos podem ser alimentados manualmente, junto com os outros dados
     protected $fillable = ['product_name', 'price'];
+
+    // Habilitando o Soft Delete para essa tabela
+    use SoftDeletes;
 }

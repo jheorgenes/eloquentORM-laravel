@@ -10,23 +10,34 @@ class MainController extends Controller
 {
     public function index()
     {
-        // // UPDATE
-        // $products = Product::find(10);
-        // $products->product_name = 'PRODUTI ALTERADO';
-        // $products->price = 10;
-        // $products->save();
+        // /**********************************/
+        // /******** Hard Delete *************/
+        // /**********************************/
 
-        // // UPDATE de forma massiva (altera vários produtos de uma vez)
-        // // Necessita de cuidado, pois esse tipo de update é irreversível
-        // Product::where('price', '<=', 10)->update([
-        //     'price' => 250
-        // ]);
+        // $product = Product::find(10);
+        // $product->delete();
 
-        // // Atualizar (se existir) ou criar
-        // Product::updateOrCreate(
-        //     ['product_name' => 'XAROPE'], //Busca na base se existe produto com esse nome
-        //     ['price' => 25] //Atualiza ou cria um produto com o nome Batata e o preço de 25
-        // );
+        // Se quiser limpar TUDO da tabela e resetar o autoIncremento
+        // Product::truncate();
+
+        // Product::destroy(1);
+        // Product::destroy(1, 3, 5);
+        // Product::destroy([2, 4, 6]);
+
+        // Executando o delete com uma condição específica
+        // Product::where('price', '>=', 70)->delete();
+
+        // /**********************************/
+        // /******** Soft Delete *************/
+        // /**********************************/
+
+        // OBS: Só é possível usar soft delete se tiver a coluna deleted_at na estrutura da tabela
+        // $product = Product::find(25);
+        // $product->delete();
+
+        // Recuperar produto com soft delete
+        // $product = Product::withTrashed()->find(25);
+        // $product->restore();
     }
 
     private function showData($data)
