@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Phone;
+use App\Models\Product;
 
 class MainController extends Controller
 {
@@ -93,6 +94,27 @@ class MainController extends Controller
         // echo "<br>";
         // echo "Telefone: " . $phone2->phone_number . "<br>";
         // echo "Cliente: " . $phone2->client->client_name . "<br>";
+    }
+
+    public function ManyToMany()
+    {
+        // // Buscar um cliente e todos os produtos que ele comprou
+        // $client1 = Client::find(1);
+        // $products = $client1->products;
+        // echo "Cliente: " . $client1->client_name . '<br>';
+        // echo "Produtos: <br><br>";
+        // foreach ($products as $product) {
+        //     echo $product->product_name . '<br>';
+        // }
+
+        // Agora vamos buscar um produto e obter todos os clientes que "compraram" esse determinado produto
+        $product1 = Product::find(1);
+        $clients = $product1->clients;
+        echo "Produto: " . $product1->product_name . '<br>';
+        echo "Clientes: <br><br>";
+        foreach ($clients as $client) {
+            echo $client->client_name . '<br>';
+        }
     }
 
     private function showData($data)
