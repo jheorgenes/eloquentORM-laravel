@@ -2,42 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Client;
 
 class MainController extends Controller
 {
     public function index()
     {
-        // /**********************************/
-        // /******** Hard Delete *************/
-        // /**********************************/
+        echo "Eloquent Relações";
+    }
 
-        // $product = Product::find(10);
-        // $product->delete();
+    public function OneToOne()
+    {
+        // // Buscar o telefone de um determinado cliente
+        // $cliente1 = Client::find(12)->phone;
+        // echo "Telefone do cliente ID: " . $cliente1->client_id . ": " . $cliente1->phone_number;
+        // echo '<hr>';
 
-        // Se quiser limpar TUDO da tabela e resetar o autoIncremento
-        // Product::truncate();
+        // // Todos os dados do cliente e o telefone dele
+        // $cliente2 = Client::find(12);
+        // // Acessando a propriedade phone que existe no model e dele, buscando o phone_number
+        // $phone = $cliente2->phone->phone_number;
+        // echo '<br>';
+        // echo "Nome do cliente: " . $cliente2->client_name . "<br>";
+        // echo "Telefone do cliente: " . $phone;
+        // echo '<hr>';
 
-        // Product::destroy(1);
-        // Product::destroy(1, 3, 5);
-        // Product::destroy([2, 4, 6]);
+        // // Outra forma de buscar é usando o método with()
+        // $cliente3 = Client::with('phone')->find(12);
+        // // print_r($cliente3->toJson()); die();
+        // echo '<br>';
+        // echo "Nome do cliente: " . $cliente3->client_name . "<br>";
+        // echo "Telefone do cliente: " . $cliente3->phone->phone_number;
+        // echo '<hr>';
 
-        // Executando o delete com uma condição específica
-        // Product::where('price', '>=', 70)->delete();
-
-        // /**********************************/
-        // /******** Soft Delete *************/
-        // /**********************************/
-
-        // OBS: Só é possível usar soft delete se tiver a coluna deleted_at na estrutura da tabela
-        // $product = Product::find(25);
-        // $product->delete();
-
-        // Recuperar produto com soft delete
-        // $product = Product::withTrashed()->find(25);
-        // $product->restore();
+        // Se quiser buscar um conjunto de clientes e seus telefones
+        $clients = Client::with('phone')->get();
+        print_r($clients->toJson()); die();
+        // foreach ($clients as $client) {
+        //     echo "<br>";
+        //     echo "Nome do cliente: " . $client->client_name . " - Telefone " . $client->phone->phone_number;
+        // }
     }
 
     private function showData($data)
