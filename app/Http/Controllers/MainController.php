@@ -185,6 +185,44 @@ class MainController extends Controller
         // }
     }
 
+    public function Collections()
+    {
+        // Buscando 5 clientes
+        // $clients = Client::take(5)->get();
+        // foreach ($clients as $client) {
+        //     echo $client->client_name . "<br>";
+        // }
+
+        // APPEND
+        $clients = Client::take(5)->get();
+        // Transformando um cliente usando o método de interação "each" e também o 'append' (adicionando) duas novas colunas
+        $clients->each->append(['client_name_uppercase', 'email_domain']);
+
+        foreach ($clients as $client) {
+            // Fazendo a conversão dos nomes para Uppercase e povoando a nova coluna
+            $client->client_name_uppercase = strtoupper($client->client_name);
+            // Povoando a nova coluna "email_domain" com o domínio do email através do identificador do "@".
+            $client->email_domain = explode('@', $client->email)[1];
+        }
+
+        foreach ($clients as $client) {
+            echo $client->client_name . " - " . $client->client_name_uppercase . " - " . $client->email_domain . "<br>";
+        }
+
+        // CONTAINS
+        $clients = Client::take(5)->get();
+        $results = $clients->contains('client_name', 'Mirela Alice Lopes');
+        var_dump($results);
+
+        // DIFF
+        $clients1 = Client::take(5)->get();
+        $clients2 = Client::take(3)->get();
+        // O método diff faz uma distinção da diferença entre o clients1 e clients2 e retorna o que for diferente
+        $results = $clients1->diff($clients2)->toArray();
+        $this->showData($results);
+    }
+
+
     private function showData($data)
     {
         echo '<pre>';
