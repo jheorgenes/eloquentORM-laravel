@@ -145,6 +145,7 @@ class MainController extends Controller
 
         // Buscar produtos com preço acima de 50, que um cliente comprou e listá-los por ordem alfabética do nome
         // Não repetir os produtos, exibir apenas quais o cliente já comprou
+
         $client2 = Client::find(1);
         $products = $client2->products()
                             ->where('price', '>', 50)
@@ -156,6 +157,32 @@ class MainController extends Controller
         foreach ($products as $product) {
             echo $product->product_name . " - " . $product->price . "<br>";
         }
+    }
+
+    public function SameResults()
+    {
+        // // Vamos buscas os mesmos resultados, mas sem usar as relações
+        // // Buscar um cliente e os seus telefones
+        // $client1 = Client::find(1);
+        // $phones = Phone::where( 'client_id', $client1->id)->get();
+        // echo "Cliente: " . $client1->client_name . "<br>";
+        // echo "Telefones: <br>";
+        // foreach ($phones as $phone) {
+        //     echo $phone->phone_number . "<br>";
+        // }
+
+        // // Buscar todos os produtos que um cliente comprou
+        // $client2 = Client::find(1);
+        // // $products = Product::join('orders', 'products.id', '=', 'orders.product_id')
+        // //                    ->where('orders.client_id', $client2->id)
+        // //                    ->get();
+        // $products = $client2->products; //Executa a mesma coisa que o código acima
+
+        // echo "Cliente: " . $client2->client_name . "<br>";
+        // echo "Produtos: <br>";
+        // foreach ($products as $product) {
+        //     echo $product->product_name . " - " . $product->price . "<br>";
+        // }
     }
 
     private function showData($data)
