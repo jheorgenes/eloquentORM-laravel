@@ -237,6 +237,46 @@ class MainController extends Controller
         $this->showData($clients->toArray());
     }
 
+    public function Serialization()
+    {
+        // // Transformar dados em Array ou Json
+        // $clientes = Client::take(10)->get();
+        // $clientes = $clientes->toArray();
+        // $this->showData($clientes);
+
+        // // Outra forma de Transformar dados em Array
+        // $clientes = Client::take(10)->get()->toArray();
+        // $this->showData($clientes);
+
+        // // Buscando apenas um registro e trazendo em array
+        // $client = Client::find(1)->toArray();
+        // $this->showData($client);
+
+        // // Transformando dados em Json
+        // $clientes = Client::take(10)->get();
+        // $clientes = $clientes->toJson();
+        // $this->showData($clientes);
+
+        // // Outra forma de serializar com JSON
+        // $clientes = Client::take(10)->get()->toJson(JSON_PRETTY_PRINT);
+        // echo "<pre>";
+        // echo $clientes;
+        // // $this->showData($clientes);
+
+        // // Escondendo algumas propriedades e exibindo em JSON
+        // $clients = Client::take(10)
+        // ->get()
+        // ->setHidden(['id', 'active', 'created_at', 'updated_at', 'deleted_at']) //Escondendo essas propriedades
+        // ->toJson(JSON_PRETTY_PRINT);
+        // $this->showData($clients);
+
+        // Exibindo epenas algumas propriedades em JSON
+        $clients = Client::take(10)
+                ->get()
+                ->setVisible(['client_name', 'email']) //Exibindo apenas essas propriedades
+                ->toJson(JSON_PRETTY_PRINT);
+        $this->showData($clients);
+    }
 
     private function showData($data)
     {
