@@ -117,6 +117,47 @@ class MainController extends Controller
         }
     }
 
+    public function RunningQueries()
+    {
+        // // Buscando um cliente e os seus telefones, mas só os telefones que começa com 8
+        // $client1 = Client::find(1);
+        // // $phones = $client1->phones->where('phone_number', 'like', '8');
+        // $phones = $client1->phones()->where('phone_number', 'like', '8%')->get();
+        // echo "Cliente: " . $client1->client_name . "<br>";
+        // echo "Telefones: <br>";
+        // foreach ($phones as $phone) {
+        //     echo $phone->phone_number . "<br>";
+        // }
+
+        // dd([
+        //     $client1->toArray(),
+        //     $phones->toArray()
+        // ]);
+
+        // // Buscar todos os produtos que um cliente comprou, mas só os produtos que custam mais de 50
+        // $client2 = Client::find(1);
+        // $products = $client2->products()->where('price', '>', 50)->orderBy('product_name')->get();
+        // echo "Cliente: " . $client2->client_name . "<br>";
+        // echo "Produtos: <br>";
+        // foreach ($products as $product) {
+        //     echo $product->product_name . " - " . $product->price . "<br>";
+        // }
+
+        // Buscar produtos com preço acima de 50, que um cliente comprou e listá-los por ordem alfabética do nome
+        // Não repetir os produtos, exibir apenas quais o cliente já comprou
+        $client2 = Client::find(1);
+        $products = $client2->products()
+                            ->where('price', '>', 50)
+                            ->distinct()
+                            ->orderBy('product_name')
+                            ->get();
+        echo "Cliente: " . $client2->client_name . "<br>";
+        echo "Produtos: <br>";
+        foreach ($products as $product) {
+            echo $product->product_name . " - " . $product->price . "<br>";
+        }
+    }
+
     private function showData($data)
     {
         echo '<pre>';
