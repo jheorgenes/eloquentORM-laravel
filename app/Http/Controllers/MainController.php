@@ -220,6 +220,21 @@ class MainController extends Controller
         // O método diff faz uma distinção da diferença entre o clients1 e clients2 e retorna o que for diferente
         $results = $clients1->diff($clients2)->toArray();
         $this->showData($results);
+
+        // INTERSECT
+        $clients1 = Client::take(5)->get();
+        $clients2 = Client::where('id', '>', 3)->take(5)->get();
+        // intersect retorna o conjunto de resultados comuns entre duas ou mais consultas
+        $results = $clients1->intersect($clients2)->toArray();
+        $this->showData($results);
+
+        echo "<hr>";
+
+        // MAKEHIDDEN
+        $clients = Client::take(15)->get();
+        // Esconde as colunas que forem especificadas
+        $clients->makeHidden(['id', 'created_at', 'updated_at', 'deleted_at']);
+        $this->showData($clients->toArray());
     }
 
 
